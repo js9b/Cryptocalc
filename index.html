@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+</head>
+
+<body>
+    <h1>Your own crypto calculator</h1>
+    <div id="main">
+
+        <div id="app">
+            <h1>{{ appTitle }}</h1>
+        </div>
+
+
+
+    </div>
+
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function (event) {
+            var obj
+            $.ajax({
+                url: '/test',
+                complete: function (data) {
+                    obj = data.responseJSON.currency.data;
+                }
+            });
+            setTimeout(() => {
+                console.log(obj)
+                for (i = 0; i < obj.length; i++) {
+                    $('#main').html($('#main').html() + JSON.stringify(obj[i].name) + " ")
+                }
+            }, 100);
+
+
+
+            new Vue({
+                data() {
+                    return {
+                        appTitle: "Pierwsza aplikacja Vue!"
+                    };
+                }
+            }).$mount("#app");
+
+        })
+    </script>
+</body>
+
+</html>
