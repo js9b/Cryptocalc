@@ -9,7 +9,7 @@ const requestOptions = {
   uri: 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest',
   qs: {
     'start': '1',
-    'limit': '200',
+    'limit': '100',
     'convert': 'USD'
   },
   headers: {
@@ -30,7 +30,7 @@ rp(requestOptions).then(response => {
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname + '/index.html'));
 })
-
+app.use(express.static(path.join(__dirname, '/')));
 app.get('/test', function (req, res, next) {
   res.json({ currency });
 });
