@@ -6,13 +6,13 @@
     
 
 body{
-    background-color: rgb(70, 70, 70);
+    /*background-color: #494947;*/
     display: flex;
     justify-content: center;
 }
 h1{
-    color: red;
-    background-color: aqua;
+    
+   
 }
 li{
     list-style-type:none;
@@ -27,10 +27,45 @@ li{
     width: 200px;
     text-align:center;
     padding: 20px;
-    border: 1px solid black;
+    /*border: 1px solid black;*/
     margin-top:20px;
+    transition: transform 1s, background-color 1s;
+    /*color:#1C2321;*/
+    background-color:whitesmoke;
+    border-radius: 5px;    
+    font-weight: bold;
+    
 }
+.elements:hover{
+    transition: 0.3s;
+    transform: scale(1.1);
+    background-color: #35FF69;
+}
+
 #main{
    max-width: 1200px; 
-   border: 1px solid red
+   border: 1px solid white;
+   padding-top:25px;
+   padding-bottom:25px;
+   /*background-color: #2C2B2A;*/
+   
+}
+.quantity{
+    height: 40px;
+    font-size: 25px;
+    text-align: center;
+    flex:1;
+    background: blue;
+    min-width: 200px;
+}
+.h1{
+    flex:3;
+    background: red;
+    min-width: 400px;
+}
+.header{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    
 }

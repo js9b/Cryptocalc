@@ -14,8 +14,11 @@
 <body>
     
     <div id="main">
-            <h1>Your own crypto calculator</h1>
-            <div id="app">
+        <div class="header">
+                <div class="h1">Your own crypto calculator </div><input type="number" class="quantity" placeholder="Quantity 1-500" min="1" max="500">
+                <div id="app">
+        
+           
                     <ul class="list">
                         <li v-for="item in message" class="elements">
                             {{item.name}}

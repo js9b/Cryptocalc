@@ -9,7 +9,7 @@ const requestOptions = {
   uri: 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest',
   qs: {
     'start': '1',
-    'limit': '100',
+    'limit': '500',
     'convert': 'USD'
   },
   headers: {
@@ -19,13 +19,18 @@ const requestOptions = {
   gzip: true
 };
 
-rp(requestOptions).then(response => {
-  currency = response;
-  console.log("Works!");
+setInterval(apidata, 300000);
+apidata()
+function apidata(){
+  rp(requestOptions).then(response => {
+    currency = response;
+    console.log("Works!");
+  
+  }).catch((err) => {
+    console.log('API call error:', err.message);
+  });
+}
 
-}).catch((err) => {
-  console.log('API call error:', err.message);
-});
 
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname + '/index.html'));
