@@ -2,6 +2,7 @@ const rp = require('request-promise');
 var express = require('express');
 var app = express();
 var path = require('path');
+
 let currency
 
 const requestOptions = {

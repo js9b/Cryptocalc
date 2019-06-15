@@ -8,6 +8,7 @@
     <title>Document</title>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <link rel="stylesheet" href="css/style.css">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
 </head>
 
@@ -20,8 +21,8 @@
         </div>
         <div id="app">
             <ul class="list">
-                <li v-for="item in message" class="elements">
-                    {{item.name}}
+                <li v-for="(coin, index) in coins" class="elements" @click="selectCoin(index)">
+                    {{coin.name}}
                 </li>
             </ul>
         </div>
@@ -29,53 +30,67 @@
             <span class="my-float">Next</span>
         </div>
     </div>
+    
     <script>
-        document.addEventListener("DOMContentLoaded", function (event) {
-            var obj
-            var chosenname = []
-            var chosencur = []
-            $.ajax({
-                async: false,
-                url: '/test',
-                complete: function (data) {
-                    obj = data.responseJSON.currency.data;
-                }
-            });            
-
+        
+        document.addEventListener("DOMContentLoaded", function (event) {  
+           
             const app = new Vue({
                 el: '#app',
                 data: {
-                    message: obj,
-                },           
-            })
-            
+                    coins: []
 
-
-            $(".elements").click(function () {
-                if (this.className == "elements") {
-                    this.className += " elementsclick"
-                } else this.className = "elements"
-            })
-
-            $("#next").click(function () {
-                len = $(".elementsclick").length
-                for (let i = 0; i < len; i++) {
-                    chosenname.push($(".elementsclick")[i].innerText)
-                }
-                if (chosenname.length == 0) {
-                    console.log("once")
-                } else {
-                    $(".float").remove()
-                    $("#app").empty()
-                    for (let i = 0; i < chosenname.length; i++) {
-                        for (let j = 0; j < obj.length; j++) {
-                            if (chosenname[i] == obj[j].name) {
-                                chosencur.push(obj[j])
-                            }
-                        }
+                },
+                methods: {
+                    getCoins() {
+                        axios.get(`http://localhost:8000/test`)
+                            .then(response => {
+                                this.coins = response.data.currency.data;
+                                console.log(response.data.currency.data)
+                            })
+                            .catch(error => {
+                                console.log('err', error);
+                            })
+                    },
+                    selectCoin(int){
+                        console.log(int)
+                        console.log(this)
+                        this.className+=" elementsclick"
                     }
-                }                
+                },
+                created() {
+                    this.getCoins();
+                }
+
             })
+
+
+
+            // $(".elements").click(function () {
+            //     if (this.className == "elements") {
+            //         this.className += " elementsclick"
+            //     } else this.className = "elements"
+            // })
+
+            // $("#next").click(function () {
+            //     len = $(".elementsclick").length
+            //     for (let i = 0; i < len; i++) {
+            //         chosenname.push($(".elementsclick")[i].innerText)
+            //     }
+            //     if (chosenname.length == 0) {
+            //         console.log("once")
+            //     } else {
+            //         $(".float").remove()
+            //         $("#app").empty()
+            //         for (let i = 0; i < chosenname.length; i++) {
+            //             for (let j = 0; j < obj.length; j++) {
+            //                 if (chosenname[i] == obj[j].name) {
+            //                     chosencur.push(obj[j])
+            //                 }
+            //             }
+            //         }
+            //     }                
+            // })
         })
     </script>
 
