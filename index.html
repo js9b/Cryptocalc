@@ -10,10 +10,12 @@
     <link rel="stylesheet" href="css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
 </head>
+
 <body>
     <div id="main">
         <div class="header">
-            <div class="h1">CRYPTO CALCULATOR </div><!--<input type="number" class="quantity" id="form"
+            <div class="h1">CRYPTO CALCULATOR </div>
+            <!--<input type="number" class="quantity" id="form"
                 placeholder="Quantity 1-500">-->
         </div>
         <div id="app">
@@ -22,53 +24,60 @@
                     {{item.name}}
                 </li>
             </ul>
-        </div>     
-        <script>
-            document.addEventListener("DOMContentLoaded", function (event) {
-                var obj
-                $.ajax({
-                    async: false,
-                    url: '/test',
-                    complete: function (data) {
-                        obj = data.responseJSON.currency.data;
-                    }
-                });               
-                // var smallobj=obj
-                // $("#form").keydown(function(){
-                //     //console.log(this.value)
-                //     val=this.value
-                //     smallobj=obj
-                //     if (this.value<1) val=1
-                //     else if(this.value>500) val=500
-                //     smallobj.pop(500-val)
-                //     console.log(smallobj)
-                // })
-                // console.log(smallobj)
-                // // for (i = 0; i < obj.length; i++) {
-                // //     $('#main').html($('#main').html() + JSON.stringify(obj[i].name) + " ")
-                // // }
+        </div>
+        <div class="float" id="next"><br>
+            <span class="my-float">Next</span>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function (event) {
+            var obj
+            var chosenname = []
+            var chosencur = []
+            $.ajax({
+                async: false,
+                url: '/test',
+                complete: function (data) {
+                    obj = data.responseJSON.currency.data;
+                }
+            });            
 
-
-
-
-                var app = new Vue({
-                    el: '#app',
-                    data: {
-                        message: obj,
-                    }
-                })
-
-
-                $(".elements").click(function(){
-                    console.log(this.className)
-                    if (this.className=="elements"){
-                        this.className+=" elementsclick"
-                    }else this.className="elements"
-                })
+            const app = new Vue({
+                el: '#app',
+                data: {
+                    message: obj,
+                },           
             })
-        </script>
+            
 
 
+            $(".elements").click(function () {
+                if (this.className == "elements") {
+                    this.className += " elementsclick"
+                } else this.className = "elements"
+            })
+
+            $("#next").click(function () {
+                len = $(".elementsclick").length
+                for (let i = 0; i < len; i++) {
+                    chosenname.push($(".elementsclick")[i].innerText)
+                }
+                if (chosenname.length == 0) {
+                    console.log("once")
+                } else {
+                    $(".float").remove()
+                    $("#app").empty()
+                    for (let i = 0; i < chosenname.length; i++) {
+                        for (let j = 0; j < obj.length; j++) {
+                            if (chosenname[i] == obj[j].name) {
+                                chosencur.push(obj[j])
+                            }
+                        }
+                    }
+                }                
+            })
+        })
+    </script>
 
 </body>
 
