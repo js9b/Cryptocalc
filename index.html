@@ -16,81 +16,61 @@
     <div id="main">
         <div class="header">
             <div class="h1">CRYPTO CALCULATOR </div>
-            <!--<input type="number" class="quantity" id="form"
-                placeholder="Quantity 1-500">-->
         </div>
         <div id="app">
             <ul class="list">
-                <li v-for="(coin, index) in coins" class="elements" @click="selectCoin(index)">
-                    {{coin.name}}
+                <li v-for="(coin, index) in coins" class="elements" >
+                    {{coin.name}}<input type="number" @change="update(index)" v-model="coin.quantity" placeholder="Quantity" class="numInput">
                 </li>
             </ul>
-        </div>
-        <div class="float" id="next"><br>
-            <span class="my-float">Next</span>
-        </div>
+            <div id="counter" class="counter">
+                Your account balance: {{balance}} USD
+            </div>
+        </div>        
     </div>
     
+
     <script>
-        
-        document.addEventListener("DOMContentLoaded", function (event) {  
-           
+
+        document.addEventListener("DOMContentLoaded", function (event) {
+
             const app = new Vue({
                 el: '#app',
                 data: {
-                    coins: []
-
+                    coins: [],
+                    showInputs: false,
+                    selected: [],
+                    balance: 0,
                 },
                 methods: {
                     getCoins() {
                         axios.get(`http://localhost:8000/test`)
                             .then(response => {
                                 this.coins = response.data.currency.data;
-                                console.log(response.data.currency.data)
+                                console.log(this.coins)
                             })
                             .catch(error => {
                                 console.log('err', error);
                             })
-                    },
-                    selectCoin(int){
-                        console.log(int)
-                        console.log(this)
-                        this.className+=" elementsclick"
-                    }
+                    },                   
+                    update(index){
+                        this.balance=0
+                        for(let i=0;i<this.coins.length; i++){
+                            if(this.coins[i].quantity){
+                                this.balance+=this.coins[i].quantity*this.coins[i].quote.USD.price 
+                            }
+                        } 
+                        this.balance=(Math.round(this.balance*100,2)/100) 
+                        document.getElementById("counter").setAttribute("style", "animation: pulse 2s;")                                           
+                    }        
+                },
+                show() {
+                    this.showInputs = true;
                 },
                 created() {
-                    this.getCoins();
+                    this.getCoins();                    
                 }
-
             })
-
-
-
-            // $(".elements").click(function () {
-            //     if (this.className == "elements") {
-            //         this.className += " elementsclick"
-            //     } else this.className = "elements"
-            // })
-
-            // $("#next").click(function () {
-            //     len = $(".elementsclick").length
-            //     for (let i = 0; i < len; i++) {
-            //         chosenname.push($(".elementsclick")[i].innerText)
-            //     }
-            //     if (chosenname.length == 0) {
-            //         console.log("once")
-            //     } else {
-            //         $(".float").remove()
-            //         $("#app").empty()
-            //         for (let i = 0; i < chosenname.length; i++) {
-            //             for (let j = 0; j < obj.length; j++) {
-            //                 if (chosenname[i] == obj[j].name) {
-            //                     chosencur.push(obj[j])
-            //                 }
-            //             }
-            //         }
-            //     }                
-            // })
         })
     </script>
 

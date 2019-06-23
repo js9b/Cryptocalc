@@ -1,9 +1,8 @@
 const rp = require('request-promise');
-var express = require('express');
-var app = express();
-var path = require('path');
-
-let currency
+const express = require('express');
+const app = express();
+const path = require('path');
+const currency
 
 const requestOptions = {
   method: 'GET',
@@ -25,13 +24,12 @@ apidata()
 function apidata(){
   rp(requestOptions).then(response => {
     currency = response;
-    console.log("Works!");
+    console.log("Data update");
   
   }).catch((err) => {
     console.log('API call error:', err.message);
   });
 }
-
 
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname + '/index.html'));
@@ -42,5 +40,5 @@ app.get('/test', function (req, res, next) {
 });
 
 app.listen(8000, function () {
-  console.log("such")
+  console.log("Start")
 })
