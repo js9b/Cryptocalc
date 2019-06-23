@@ -1,8 +1,9 @@
 const rp = require('request-promise');
-const express = require('express');
-const app = express();
-const path = require('path');
-const currency
+var express = require('express');
+var app = express();
+var path = require('path');
+
+let currency
 
 const requestOptions = {
   method: 'GET',
@@ -30,6 +31,7 @@ function apidata(){
     console.log('API call error:', err.message);
   });
 }
+
 
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname + '/index.html'));
