@@ -6,30 +6,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    
     <link rel="stylesheet" href="css/style.css">
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
 </head>
 
 <body>
+    <div id="particles-js"></div>
+    <div class="header">
+        <div class="h1"><span class="cLetter">C</span>RYPTO <span class="cLetter">C</span>ALCULATOR </div>
+    </div>
     <div id="main">
-        <div class="header">
-            <div class="h1">CRYPTO CALCULATOR </div>
-        </div>
+        
         <div id="app">
             <ul class="list">
-                <li v-for="(coin, index) in coins" class="elements" >
-                    {{coin.name}}<input type="number" @change="update(index)" v-model="coin.quantity" placeholder="Quantity" class="numInput">
+                <li v-for="(coin, index) in coins" class="elements" >                             
+                    <span class="coinName">{{coin.name}}</span>
+                    <input type="number" @change="update(index)" v-bind:id="coin.symbol" v-model="coin.quantity" placeholder="QUAN" class="numInput">       
                 </li>
-            </ul>
+            </ul>            
             <div id="counter" class="counter">
-                Your account balance: {{balance}} USD
+                Account balance: {{balance}} USD <span></span>
             </div>
-        </div>        
+        </div>
     </div>
-    
-
+    <script src="js/particles.js"></script>
+    <script src="js/app.js"></script>
     <script>
 
         document.addEventListener("DOMContentLoaded", function (event) {
@@ -52,28 +55,28 @@
                             .catch(error => {
                                 console.log('err', error);
                             })
-                    },                   
-                    update(index){
-                        this.balance=0
-                        for(let i=0;i<this.coins.length; i++){
-                            if(this.coins[i].quantity){
-                                this.balance+=this.coins[i].quantity*this.coins[i].quote.USD.price 
+                    },
+                    update(index) {
+                        this.balance = 0
+                        for (let i = 0; i < this.coins.length; i++) {
+                            if (this.coins[i].quantity) {
+                                this.balance += this.coins[i].quantity * this.coins[i].quote.USD.price
                             }
-                        } 
-                        this.balance=(Math.round(this.balance*100,2)/100) 
-                        document.getElementById("counter").setAttribute("style", "animation: pulse 2s;")                                           
-                    }        
+                        }
+                        this.balance = (Math.round(this.balance * 100, 2) / 100)
+                        document.getElementById("counter").classList += " pulse"
+                        setTimeout(function () { document.getElementById("counter").classList = "counter" }, 1400);
+                    }
                 },
                 show() {
                     this.showInputs = true;
-                },
+                },                
                 created() {
-                    this.getCoins();                    
+                    this.getCoins();
                 }
             })
         })
     </script>
-
 </body>
 
 </html>
