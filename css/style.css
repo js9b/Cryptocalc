@@ -20,10 +20,8 @@ li{
     justify-content: space-around;
 }
 .elements{
-    width: 320px;
-    /* border-bottom: 2px solid rgb(177, 177, 177);     */
-    /* border-left: 2px solid rgb(8, 126, 47); */
-    padding: 20px 15px;
+    width: 320px;    
+    padding: 20px 0 20px 15px;
     margin-left: 20px;
     margin-right: 20px;
     margin-top:20px;
@@ -33,15 +31,15 @@ li{
     border: 2px solid rgb(55,55,55);     
 }
 .numInput{
+    font-size: 17px; 
     width: 80px;
     height: 100%;;
     float: right;
     border:none;
-    text-align: center;
-   
-    border-left: solid 2px rgb(55,55,55); 
-    
+    text-align: center;   
+    border-left: solid 2px rgb(55,55,55);     
 }
+
 
 input[type=number]::-webkit-inner-spin-button {
     -webkit-appearance: none;
@@ -60,23 +58,18 @@ label{
 .h1{  
     font-size: 45px;
     text-align: center;
-    /* text-shadow: 2px 2px 5px rgb(145, 145, 145); */
-    
-    /* width: 100%; */
     width: 100vw;
     margin-top: 0;
     padding: 10px;
-    
-
     color:whitesmoke;	
 	text-align:center;
     box-shadow: 0 0 10px rgb(20, 20, 20);    
     background-color:rgb(55,55,55);
-    
-    
 } 
-.header{
-    
+.searchInp{
+
+}
+.header{    
     margin-bottom: 25px;
     position: relative;
 }
@@ -101,11 +94,7 @@ label{
 
 .cLetter{
     font-size: 80px; 
-    /* background: -webkit-linear-gradient(rgb(25, 197, 83), rgb(20, 73, 3));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent; */
 }
-
 
 @keyframes pulse{
     0%{background-color:rgb(55,55,55);
@@ -138,4 +127,12 @@ input:focus{
     .h1{  
         font-size: 25px;
     }
+    .elements{
+        font-size: 15px;
+        padding: 15px 0 15px 10px;  
+    }
+    .numInput{
+        font-size: 13px; 
+    }
   }
+  

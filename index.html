@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    
+
     <link rel="stylesheet" href="css/style.css">
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
@@ -18,14 +18,16 @@
         <div class="h1"><span class="cLetter">C</span>RYPTO <span class="cLetter">C</span>ALCULATOR </div>
     </div>
     <div id="main">
-        
+
         <div id="app">
+            <input type="text" v-model="search" placeholder="Search" class="searchInp">
             <ul class="list">
-                <li v-for="(coin, index) in coins" class="elements" >                             
+                <li v-for="(coin, index) in filtered" class="elements">
                     <span class="coinName">{{coin.name}}</span>
-                    <input type="number" @change="update(index)" v-bind:id="coin.symbol" v-model="coin.quantity" placeholder="QUAN" class="numInput">       
+                    <input type="number" @change="update(index)" v-bind:id="coin.symbol" v-model="coin.quantity"
+                        placeholder="QUAN" class="numInput">
                 </li>
-            </ul>            
+            </ul>
             <div id="counter" class="counter">
                 Account balance: {{balance}} USD <span></span>
             </div>
@@ -44,17 +46,19 @@
                     showInputs: false,
                     selected: [],
                     balance: 0,
+                    search: "",
                 },
                 methods: {
                     getCoins() {
-                        axios.get(`http://localhost:8000/test`)
+                        axios.get('http://192.168.55.105:8000/test')
+                            // axios.get(`http://localhost:8000/test`)
                             .then(response => {
                                 this.coins = response.data.currency.data;
                                 console.log(this.coins)
                             })
                             .catch(error => {
                                 console.log('err', error);
-                            })
+                            })                            
                     },
                     update(index) {
                         this.balance = 0
@@ -70,9 +74,16 @@
                 },
                 show() {
                     this.showInputs = true;
-                },                
+                },
                 created() {
                     this.getCoins();
+                },
+                computed: {
+                    filtered: function () {
+                        return this.coins.filter((coin) => {
+                            return coin.name.toLowerCase().match(this.search.toLowerCase());
+                        })
+                    }
                 }
             })
         })
