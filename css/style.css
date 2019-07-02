@@ -58,20 +58,29 @@ label{
 .h1{  
     font-size: 45px;
     text-align: center;
-    width: 100vw;
+    /* width: 100vw; */
     margin-top: 0;
     padding: 10px;
     color:whitesmoke;	
 	text-align:center;
+    
+} 
+.searchInp{      
+    padding: 20px 0 20px 15px;    
+    font-size: 19px;  
+    background-color: whitesmoke; 
+    border-radius: 5px; 
+    border: 2px solid rgb(55,55,55);      
+    width: 320px;   
+    margin-left: auto;
+    margin-right: auto;
+    margin-top:20px;     
+}
+.header{      
+    position: relative;
+    width: 100vw;
     box-shadow: 0 0 10px rgb(20, 20, 20);    
     background-color:rgb(55,55,55);
-} 
-.searchInp{
-
-}
-.header{    
-    margin-bottom: 25px;
-    position: relative;
 }
 .counter{
 	position:fixed;
@@ -116,8 +125,19 @@ input:focus{
     height: 100vh;
 }
 
+.line{
+  width: 45px;
+  height: 6px;
+  background-color: rgb(255, 255, 255);
+  margin: 8px 0;  
+}
+.menu{
+    position: absolute;
+    top: 30px; left: 5%; 
+}
 
-@media  (max-width: 600px) {
+
+@media  (max-width: 720px) {
     .counter{
         font-size: 20px;
     }
@@ -134,5 +154,32 @@ input:focus{
     .numInput{
         font-size: 13px; 
     }
+    .line{
+        width: 35px;
+        height: 5px;        
+        margin: 6px 0;  
+    }
+    .menu{          
+          top: 15px; left: 20px; 
+    }     
+  }
+  @media  (max-width: 430px) {    
+    .cLetter{
+        font-size: 28px; 
+    }
+    .h1{  
+        font-size: 19px;
+    }
+    .counter{
+        padding: 15px;
+    }
+    .line{
+        width: 30px;
+        height: 4px;        
+        margin: 5px 0;  
+    }
+    .menu{          
+          top: 10px; left: 15px; 
+    }  
   }
   

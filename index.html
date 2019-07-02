@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-
     <link rel="stylesheet" href="css/style.css">
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
@@ -15,12 +14,15 @@
 <body>
     <div id="particles-js"></div>
     <div class="header">
-        <div class="h1"><span class="cLetter">C</span>RYPTO <span class="cLetter">C</span>ALCULATOR </div>
+        <div class="menu">
+            <div class="line"></div><div class="line"></div><div class="line"></div>
+        </div>
+        <div class="h1"><span class="cLetter">C</span>RYPTO <span class="cLetter">C</span>ALC<span class="hideTitle">ULATOR</span> </div>
     </div>
     <div id="main">
 
         <div id="app">
-            <input type="text" v-model="search" placeholder="Search" class="searchInp">
+            <!-- <input type="text" v-model="search" placeholder="Search" class="searchInp" > -->
             <ul class="list">
                 <li v-for="(coin, index) in filtered" class="elements">
                     <span class="coinName">{{coin.name}}</span>
@@ -50,7 +52,7 @@
                 },
                 methods: {
                     getCoins() {
-                        axios.get('http://192.168.55.105:8000/test')
+                        axios.get('http://192.168.55.102:8000/test')
                             // axios.get(`http://localhost:8000/test`)
                             .then(response => {
                                 this.coins = response.data.currency.data;
