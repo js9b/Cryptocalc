@@ -26,7 +26,7 @@ function apidata(){
   rp(requestOptions).then(response => {
     currency = response;
     console.log("Data update");
-  
+    
   }).catch((err) => {
     console.log('API call error:', err.message);
   });

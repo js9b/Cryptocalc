@@ -13,21 +13,48 @@
 
 <body>
     <div id="particles-js"></div>
-    <div class="header">
-        <div class="menu">
-            <div class="line"></div><div class="line"></div><div class="line"></div>
-        </div>
-        <div class="h1"><span class="cLetter">C</span>RYPTO <span class="cLetter">C</span>ALC<span class="hideTitle">ULATOR</span> </div>
-    </div>
-    <div id="main">
+    <div id="app">
 
-        <div id="app">
+        <div class="header">
+            <div class="menu" @click="showMenu=true">
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+            </div>
+
+            <div class="h1"><span class="cLetter">C</span>RYPTO <span class="cLetter">C</span>ALC<span
+                    class="hideTitle">ULATOR</span>
+            </div>
+            <div class="menuBig" v-if="showMenu">
+                <ul>
+                    <li>
+                        <label for="showPrice">
+                            <input v-model="showPrice" type="checkbox" id="showPrice" class="menuOption">
+                            Show price</label></li>
+                    <li> <label for="showChange">
+                            <input v-model="showChange" type="checkbox" id="showChange" class="menuOption">
+                            Show change 24h</label></li>
+                    <li><label for="showSearchbox">
+                            <input v-model="showSearchbox" type="checkbox" id="showSearchbox" class="menuOption">
+                            Show searchbox</label></li>
+                    <li><label for="saveData">
+                            <input v-model="saveData" type="checkbox" id="saveData" class="menuOption">
+                            Save data</label></li>
+                </ul>
+            </div>
+        </div>
+        <div id="main">
+
+
             <!-- <input type="text" v-model="search" placeholder="Search" class="searchInp" > -->
             <ul class="list">
                 <li v-for="(coin, index) in filtered" class="elements">
                     <span class="coinName">{{coin.name}}</span>
                     <input type="number" @change="update(index)" v-bind:id="coin.symbol" v-model="coin.quantity"
                         placeholder="QUAN" class="numInput">
+                    <div v-if="showPrice" class="price">{{coin.quote.USD.price}} USD</div>
+                    <div v-if="showChange" class="change">{{coin.quote.USD.percent_change_24h}}%</div>
+
                 </li>
             </ul>
             <div id="counter" class="counter">
@@ -40,7 +67,6 @@
     <script>
 
         document.addEventListener("DOMContentLoaded", function (event) {
-
             const app = new Vue({
                 el: '#app',
                 data: {
@@ -49,18 +75,23 @@
                     selected: [],
                     balance: 0,
                     search: "",
+                    showMenu: false,
+                    showChange: false,
+                    showPrice: false,
+                    showSearchbox: false,
+                    saveData: false,
                 },
                 methods: {
                     getCoins() {
                         axios.get('http://192.168.55.102:8000/test')
                             // axios.get(`http://localhost:8000/test`)
                             .then(response => {
+                                console.log(response)
                                 this.coins = response.data.currency.data;
-                                console.log(this.coins)
                             })
                             .catch(error => {
                                 console.log('err', error);
-                            })                            
+                            })
                     },
                     update(index) {
                         this.balance = 0
@@ -72,11 +103,15 @@
                         this.balance = (Math.round(this.balance * 100, 2) / 100)
                         document.getElementById("counter").classList += " pulse"
                         setTimeout(function () { document.getElementById("counter").classList = "counter" }, 1400);
+                    },
+                    show() {
+                        this.showInputs = true;
+                    },
+                    consolelog() {
+                        console.log(this)
                     }
                 },
-                show() {
-                    this.showInputs = true;
-                },
+
                 created() {
                     this.getCoins();
                 },
