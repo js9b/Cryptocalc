@@ -16,10 +16,13 @@
     <div id="app">
 
         <div class="header">
-            <div class="menu" @click="showMenu=true">
-                <div class="line"></div>
-                <div class="line"></div>
-                <div class="line"></div>
+            <div class="menu">
+                <input type="checkbox" id="menuBtn" v-model="showMenu" class="menuBtn">
+                <div v-if="!showMenu" class="line"></div>
+                <div v-if="!showMenu" class="line"></div>
+                <div v-if="!showMenu" class="line"></div>
+                <div v-if="showMenu" class="line1"></div>
+                <div v-if="showMenu" class="line2"></div>
             </div>
 
             <div class="h1"><span class="cLetter">C</span>RYPTO <span class="cLetter">C</span>ALC<span
@@ -27,26 +30,35 @@
             </div>
             <div class="menuBig" v-if="showMenu">
                 <ul>
-                    <li>
-                        <label for="showPrice">
-                            <input v-model="showPrice" type="checkbox" id="showPrice" class="menuOption">
+                    <li class="menuOption">
+                        <label for="showPrice" class="menuLabel">
+                            <input v-model="showPrice" type="checkbox" id="showPrice">
                             Show price</label></li>
-                    <li> <label for="showChange">
-                            <input v-model="showChange" type="checkbox" id="showChange" class="menuOption">
-                            Show change 24h</label></li>
-                    <li><label for="showSearchbox">
-                            <input v-model="showSearchbox" type="checkbox" id="showSearchbox" class="menuOption">
-                            Show searchbox</label></li>
-                    <li><label for="saveData">
-                            <input v-model="saveData" type="checkbox" id="saveData" class="menuOption">
-                            Save data</label></li>
+                    <li class="menuOption">
+                        <label for="showChange" class="menuLabel">
+                            <input v-model="showChange" type="checkbox" id="showChange">
+                            Show change 24h</label>
+                    </li>
+                    <li class="menuOption">
+                    <label for="showSearchbox" class="menuLabel">
+                        <input v-model="showSearchbox" type="checkbox" id="showSearchbox">
+                        Show searchbox</label>
+                    </li>
+                    <li class="menuOption">
+                        <label for="saveData" class="menuLabel">
+                            <input v-model="saveData" type="checkbox" id="saveData">
+                            Save data</label>
+                    </li>
+                    <li class="menuOption" @click="showMenu=false" class="menuLabel">Hide</li>
                 </ul>
             </div>
         </div>
         <div id="main">
 
-
-            <!-- <input type="text" v-model="search" placeholder="Search" class="searchInp" > -->
+            <div class="searchDiv">
+                <input type="text" v-model="search" @click="search=''" v-if="showSearchbox" placeholder="Search"
+                    class="searchInp">
+            </div>
             <ul class="list">
                 <li v-for="(coin, index) in filtered" class="elements">
                     <span class="coinName">{{coin.name}}</span>
@@ -57,7 +69,7 @@
 
                 </li>
             </ul>
-            <div id="counter" class="counter">
+            <div v-bind:class="[pulseBtn ? 'counter pulse' : 'counter']">
                 Account balance: {{balance}} USD <span></span>
             </div>
         </div>
@@ -71,11 +83,10 @@
                 el: '#app',
                 data: {
                     coins: [],
-                    showInputs: false,
-                    selected: [],
+                    pulseBtn: false,                    
                     balance: 0,
                     search: "",
-                    showMenu: false,
+                    showMenu: true,
                     showChange: false,
                     showPrice: false,
                     showSearchbox: false,
@@ -86,7 +97,6 @@
                         axios.get('http://192.168.55.102:8000/test')
                             // axios.get(`http://localhost:8000/test`)
                             .then(response => {
-                                console.log(response)
                                 this.coins = response.data.currency.data;
                             })
                             .catch(error => {
@@ -101,15 +111,16 @@
                             }
                         }
                         this.balance = (Math.round(this.balance * 100, 2) / 100)
-                        document.getElementById("counter").classList += " pulse"
-                        setTimeout(function () { document.getElementById("counter").classList = "counter" }, 1400);
+                        this.pulseBtn = true;
+                        setTimeout(() => this.pulseBtn = false, 1400);
                     },
                     show() {
                         this.showInputs = true;
                     },
                     consolelog() {
-                        console.log(this)
-                    }
+                        console.log(this.selected)
+                    },
+
                 },
 
                 created() {

@@ -24,6 +24,10 @@ setInterval(apidata, 300000);
 apidata()
 function apidata(){
   rp(requestOptions).then(response => {
+    for(let i =0;i<response.data.length; i++){         
+      response.data[i].quote.USD.price = (Math.round(response.data[i].quote.USD.price * 100, 2) / 100)
+      response.data[i].quote.USD.percent_change_24h=(Math.round (response.data[i].quote.USD.percent_change_24h  * 100, 2) / 100)  
+    }
     currency = response;
     console.log("Data update");
     
