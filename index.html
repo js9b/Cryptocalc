@@ -32,23 +32,28 @@
                 <ul>
                     <li class="menuOption">
                         <label for="showPrice" class="menuLabel">
-                            <input v-model="showPrice" type="checkbox" id="showPrice">
+                            <input v-model="showPrice" type="checkbox" id="showPrice" class="menuCheckbox">
                             Show price</label></li>
                     <li class="menuOption">
                         <label for="showChange" class="menuLabel">
-                            <input v-model="showChange" type="checkbox" id="showChange">
+                            <input v-model="showChange" type="checkbox" id="showChange" class="menuCheckbox">
                             Show change 24h</label>
                     </li>
                     <li class="menuOption">
                     <label for="showSearchbox" class="menuLabel">
-                        <input v-model="showSearchbox" type="checkbox" id="showSearchbox">
+                        <input v-model="showSearchbox" type="checkbox" id="showSearchbox" class="menuCheckbox">
                         Show searchbox</label>
                     </li>
                     <li class="menuOption">
+                            <label for="range" class="menuLabel">
+                                <input v-model="range" type="range" min="1" max="102" step="6" id="range" class="range">
+                                Range</label>
+                            </li>
+                    <!-- <li class="menuOption">
                         <label for="saveData" class="menuLabel">
                             <input v-model="saveData" type="checkbox" id="saveData">
                             Save data</label>
-                    </li>
+                    </li> -->
                     <li class="menuOption" @click="showMenu=false" class="menuLabel">Hide</li>
                 </ul>
             </div>
@@ -65,7 +70,10 @@
                     <input type="number" @change="update(index)" v-bind:id="coin.symbol" v-model="coin.quantity"
                         placeholder="QUAN" class="numInput">
                     <div v-if="showPrice" class="price">{{coin.quote.USD.price}} USD</div>
-                    <div v-if="showChange" class="change">{{coin.quote.USD.percent_change_24h}}%</div>
+                    <div v-if="showChange" class="change" >
+                        <span v-if="coin.quote.USD.percent_change_24h<0" style="color: red;">{{coin.quote.USD.percent_change_24h}}%</span> 
+                        <span v-else style="color: green;">{{coin.quote.USD.percent_change_24h}}%</span> 
+                    </div>
 
                 </li>
             </ul>
@@ -85,6 +93,7 @@
                     coins: [],
                     pulseBtn: false,                    
                     balance: 0,
+                    range: 102,
                     search: "",
                     showMenu: true,
                     showChange: false,
