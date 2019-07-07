@@ -40,15 +40,20 @@
                             Show change 24h</label>
                     </li>
                     <li class="menuOption">
-                    <label for="showSearchbox" class="menuLabel">
-                        <input v-model="showSearchbox" type="checkbox" id="showSearchbox" class="menuCheckbox">
-                        Show searchbox</label>
+                        <label for="showSearchbox" class="menuLabel">
+                            <input v-model="showSearchbox" type="checkbox" id="showSearchbox" class="menuCheckbox">
+                            Show searchbox</label>
                     </li>
                     <li class="menuOption">
-                            <label for="range" class="menuLabel">
-                                <input v-model="range" type="range" min="1" max="102" step="6" id="range" class="range">
-                                Range</label>
-                            </li>
+                        <label for="showSelected" class="menuLabel">
+                            <input v-model="showSelected" type="checkbox" id="showSelected" class="showSelected">
+                            Show Selected</label>
+                    </li>
+                    <!-- <li class="menuOption">
+                        <label for="range" class="menuLabel">
+                            <input v-model="range" type="range" min="1" max="102" step="6" id="range" class="range">
+                            Range</label>
+                    </li> -->
                     <!-- <li class="menuOption">
                         <label for="saveData" class="menuLabel">
                             <input v-model="saveData" type="checkbox" id="saveData">
@@ -70,9 +75,10 @@
                     <input type="number" @change="update(index)" v-bind:id="coin.symbol" v-model="coin.quantity"
                         placeholder="QUAN" class="numInput">
                     <div v-if="showPrice" class="price">{{coin.quote.USD.price}} USD</div>
-                    <div v-if="showChange" class="change" >
-                        <span v-if="coin.quote.USD.percent_change_24h<0" style="color: red;">{{coin.quote.USD.percent_change_24h}}%</span> 
-                        <span v-else style="color: green;">{{coin.quote.USD.percent_change_24h}}%</span> 
+                    <div v-if="showChange" class="change">
+                        <span v-if="coin.quote.USD.percent_change_24h<0"
+                            style="color: red;">{{coin.quote.USD.percent_change_24h}}%</span>
+                        <span v-else style="color: green;">{{coin.quote.USD.percent_change_24h}}%</span>
                     </div>
 
                 </li>
@@ -84,6 +90,7 @@
     </div>
     <script src="js/particles.js"></script>
     <script src="js/app.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
     <script>
 
         document.addEventListener("DOMContentLoaded", function (event) {
@@ -91,22 +98,25 @@
                 el: '#app',
                 data: {
                     coins: [],
-                    pulseBtn: false,                    
+                    pulseBtn: false,
                     balance: 0,
                     range: 102,
                     search: "",
-                    showMenu: true,
+                    showMenu: false,
                     showChange: false,
                     showPrice: false,
                     showSearchbox: false,
+                    showSelected: false,
                     saveData: false,
+                    selected: [],
                 },
                 methods: {
                     getCoins() {
-                        axios.get('http://192.168.55.102:8000/test')
+                        axios.get('http://192.168.55.107:8000/test')
                             // axios.get(`http://localhost:8000/test`)
                             .then(response => {
                                 this.coins = response.data.currency.data;
+                                this.cookies();
                             })
                             .catch(error => {
                                 console.log('err', error);
@@ -114,26 +124,39 @@
                     },
                     update(index) {
                         this.balance = 0
+                        this.selected = []                        
                         for (let i = 0; i < this.coins.length; i++) {
+                            let obj = {}
                             if (this.coins[i].quantity) {
                                 this.balance += this.coins[i].quantity * this.coins[i].quote.USD.price
+                                obj.name = this.coins[i].name
+                                obj.quantity = this.coins[i].quantity
+                                this.selected.push(obj)
                             }
                         }
+                        Cookies.set("data", this.selected)
                         this.balance = (Math.round(this.balance * 100, 2) / 100)
                         this.pulseBtn = true;
                         setTimeout(() => this.pulseBtn = false, 1400);
                     },
-                    show() {
-                        this.showInputs = true;
-                    },
                     consolelog() {
-                        console.log(this.selected)
+                        //console.log(this.selected)
                     },
-
+                    cookies(){
+                        if (Cookies.get("data")) {
+                        for (let i = 0; i < Cookies.getJSON("data").length; i++) {
+                            for (let j = 0; j < this.coins.length; j++) {
+                                if(this.coins[j].name==Cookies.getJSON("data")[i].name){
+                                    this.coins[j].quantity=Cookies.getJSON("data")[i].quantity
+                                }
+                            }
+                        }
+                    }
+                    this.update()
+                    },
                 },
-
                 created() {
-                    this.getCoins();
+                    this.getCoins();                    
                 },
                 computed: {
                     filtered: function () {
