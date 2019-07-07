@@ -31,22 +31,22 @@
             <div class="menuBig" v-if="showMenu">
                 <ul>
                     <li class="menuOption">
-                        <label for="showPrice" class="menuLabel">
+                        <label for="showPrice" v-bind:class="[showPrice ? 'menuLabel greenColor' : 'menuLabel']">
                             <input v-model="showPrice" type="checkbox" id="showPrice" class="menuCheckbox">
                             Show price</label></li>
                     <li class="menuOption">
-                        <label for="showChange" class="menuLabel">
+                        <label for="showChange" v-bind:class="[showChange ? 'menuLabel greenColor' : 'menuLabel']">
                             <input v-model="showChange" type="checkbox" id="showChange" class="menuCheckbox">
                             Show change 24h</label>
                     </li>
                     <li class="menuOption">
-                        <label for="showSearchbox" class="menuLabel">
+                        <label for="showSearchbox" v-bind:class="[showSearchbox ? 'menuLabel greenColor' : 'menuLabel']">
                             <input v-model="showSearchbox" type="checkbox" id="showSearchbox" class="menuCheckbox">
                             Show searchbox</label>
                     </li>
                     <li class="menuOption">
-                        <label for="showSelected" class="menuLabel">
-                            <input v-model="showSelected" type="checkbox" id="showSelected" class="showSelected">
+                        <label for="showSelected"  v-bind:class="[showSelected ? 'menuLabel greenColor' : 'menuLabel']">
+                            <input v-model="showSelected" type="checkbox" id="showSelected" class="menuCheckbox">
                             Show Selected</label>
                     </li>
                     <!-- <li class="menuOption">
@@ -69,7 +69,21 @@
                 <input type="text" v-model="search" @click="search=''" v-if="showSearchbox" placeholder="Search"
                     class="searchInp">
             </div>
-            <ul class="list">
+            <ul class="list" v-if="showSelected">
+                <li v-for="(coin, index) in filtered" class="elements" v-if="coin.quantity">
+                    <span class="coinName">{{coin.name}}</span>
+                    <input type="number" @change="update(index)" v-bind:id="coin.symbol" v-model="coin.quantity"
+                        placeholder="QUAN" class="numInput">
+                    <div v-if="showPrice" class="price">{{coin.quote.USD.price}} USD</div>
+                    <div v-if="showChange" class="change">
+                        <span v-if="coin.quote.USD.percent_change_24h<0"
+                            style="color: red;">{{coin.quote.USD.percent_change_24h}}%</span>
+                        <span v-else style="color: green;">{{coin.quote.USD.percent_change_24h}}%</span>
+                    </div>
+
+                </li>
+            </ul>
+            <ul class="list" v-else>
                 <li v-for="(coin, index) in filtered" class="elements">
                     <span class="coinName">{{coin.name}}</span>
                     <input type="number" @change="update(index)" v-bind:id="coin.symbol" v-model="coin.quantity"
@@ -150,9 +164,10 @@
                                     this.coins[j].quantity=Cookies.getJSON("data")[i].quantity
                                 }
                             }
-                        }
+                        }                        
+                        this.update()
                     }
-                    this.update()
+                    
                     },
                 },
                 created() {

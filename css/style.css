@@ -154,7 +154,9 @@ input:focus{
 .line2 {    
     transform: rotate(45deg) translate(10px, -10px);      
 }
-
+.greenColor{
+    color: rgb(53, 231, 97);
+}
 
 .menu{
     position: absolute;
@@ -191,8 +193,8 @@ input:focus{
     transition: 0.3s;
 }
 .menuCheckbox{
-    height: 18px;
-  width: 18px;
+    height: 17px;
+  width: 17px;
 }
 
 @media  (max-width: 720px) {
@@ -253,6 +255,11 @@ input:focus{
     .line2 {    
         transform: rotate(45deg) translate(5px, -12px);      
     }
+    .menuCheckbox{
+    height: 12px;
+      width: 12px;
+      
+    }
      
   }
   @media  (max-width: 430px) {    
@@ -287,5 +294,9 @@ input:focus{
     .line2 {    
         transform: rotate(45deg) translate(3px, -8px);      
     } 
+    .menuCheckbox{
+        height: 10px;
+          width: 10px;          
+        }
   }
   
