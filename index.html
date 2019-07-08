@@ -126,8 +126,8 @@
                 },
                 methods: {
                     getCoins() {
-                        axios.get('http://192.168.55.107:8000/test')
-                            // axios.get(`http://localhost:8000/test`)
+                        //axios.get('http://192.168.55.107:8000/test')
+                             axios.get(`http://localhost:8000/test`)
                             .then(response => {
                                 this.coins = response.data.currency.data;
                                 this.cookies();
