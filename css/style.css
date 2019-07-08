@@ -5,8 +5,6 @@
 }  
 body{
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    /* display: flex;
-    justify-content: center; */
     background: rgb(212, 212, 212);
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
@@ -32,7 +30,8 @@ li{
     margin-top:20px;     
     background-color: white; 
     border-radius: 5px; 
-    border: 2px solid rgb(55,55,55);     
+    border: 2px solid rgb(55,55,55);   
+    transform: 0.3s;  
 }
 .numInput{
     font-size: 17px; 
@@ -43,7 +42,6 @@ li{
     text-align: center;   
     border-left: solid 2px rgb(55,55,55);     
 }
-
 input[type=number]::-webkit-inner-spin-button {
     -webkit-appearance: none;
 }
@@ -99,16 +97,12 @@ label{
     background-color:rgb(55,55,55);
     font-size: 27px;    
 }
-
 .pulse{
     animation: pulse 1.4s;
 }
-
-
 .cLetter{
     font-size: 80px; 
 }
-
 @keyframes pulse{
     0%{background-color:rgb(55,55,55);
     color: whitesmoke;}
@@ -118,11 +112,9 @@ label{
     100%{background-color:rgb(55,55,55);
     color: whitesmoke;}
 }
-
 input:focus{
     outline: none;
 }
-
 .menuBtn{
    height: 45px;
    width: 45px;
@@ -131,16 +123,12 @@ input:focus{
    cursor: pointer;
    opacity: 0;   
 }
-
-
-
 .line{
   width: 45px;
   height: 6px;
   background-color: rgb(255, 255, 255);
   margin: 8px 0;  
 }
-
 .line1, .line2 {     
     width: 44px;
     height: 6px;
@@ -149,15 +137,14 @@ input:focus{
 }
 .line1{
     transform: rotate(-45deg) translate(-20px , 0);
-}
-  
+}  
 .line2 {    
     transform: rotate(45deg) translate(10px, -10px);      
 }
 .greenColor{
+    transition: 0.3s;
     color: rgb(53, 231, 97);
 }
-
 .menu{
     position: absolute;
     top: 30px; left: 5%; 
@@ -167,11 +154,9 @@ input:focus{
     font-size: 16px;
     margin-top: 5px;
 }
-
 .coinName{
     font-size: 19px;
 }
-
 .menuBig{      
     position: relative;
     color: white;
@@ -188,13 +173,10 @@ input:focus{
 .menuLabel{
     cursor: pointer;
 }
-.menuOption:hover{
-    box-shadow: 0 0 5px black;
-    transition: 0.3s;
-}
 .menuCheckbox{
     height: 17px;
   width: 17px;
+  display: none;
 }
 
 @media  (max-width: 720px) {
@@ -243,8 +225,7 @@ input:focus{
     .menuBtn{
         height: 35px;
         width: 35px;    
-    }   
-      
+    }         
     .line1, .line2 {     
         width: 31px;
         height: 5px;            
@@ -257,8 +238,7 @@ input:focus{
     }
     .menuCheckbox{
     height: 12px;
-      width: 12px;
-      
+      width: 12px;      
     }
      
   }

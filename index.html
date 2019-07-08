@@ -14,7 +14,6 @@
 <body>
     <div id="particles-js"></div>
     <div id="app">
-
         <div class="header">
             <div class="menu">
                 <input type="checkbox" id="menuBtn" v-model="showMenu" class="menuBtn">
@@ -24,28 +23,31 @@
                 <div v-if="showMenu" class="line1"></div>
                 <div v-if="showMenu" class="line2"></div>
             </div>
-
             <div class="h1"><span class="cLetter">C</span>RYPTO <span class="cLetter">C</span>ALC<span
                     class="hideTitle">ULATOR</span>
             </div>
             <div class="menuBig" v-if="showMenu">
                 <ul>
                     <li class="menuOption">
-                        <label for="showPrice" v-bind:class="[showPrice ? 'menuLabel greenColor' : 'menuLabel']">
+                        <label for="showPrice" @click="cookiesMenu()"
+                            v-bind:class="[showPrice ? 'menuLabel greenColor' : 'menuLabel']">
                             <input v-model="showPrice" type="checkbox" id="showPrice" class="menuCheckbox">
                             Show price</label></li>
                     <li class="menuOption">
-                        <label for="showChange" v-bind:class="[showChange ? 'menuLabel greenColor' : 'menuLabel']">
+                        <label for="showChange" @click="cookiesMenu()"
+                            v-bind:class="[showChange ? 'menuLabel greenColor' : 'menuLabel']">
                             <input v-model="showChange" type="checkbox" id="showChange" class="menuCheckbox">
                             Show change 24h</label>
                     </li>
                     <li class="menuOption">
-                        <label for="showSearchbox" v-bind:class="[showSearchbox ? 'menuLabel greenColor' : 'menuLabel']">
+                        <label for="showSearchbox" @click="cookiesMenu()"
+                            v-bind:class="[showSearchbox ? 'menuLabel greenColor' : 'menuLabel']">
                             <input v-model="showSearchbox" type="checkbox" id="showSearchbox" class="menuCheckbox">
                             Show searchbox</label>
                     </li>
                     <li class="menuOption">
-                        <label for="showSelected"  v-bind:class="[showSelected ? 'menuLabel greenColor' : 'menuLabel']">
+                        <label for="showSelected" @click="cookiesMenu()"
+                            v-bind:class="[showSelected ? 'menuLabel greenColor' : 'menuLabel']">
                             <input v-model="showSelected" type="checkbox" id="showSelected" class="menuCheckbox">
                             Show Selected</label>
                     </li>
@@ -59,12 +61,11 @@
                             <input v-model="saveData" type="checkbox" id="saveData">
                             Save data</label>
                     </li> -->
-                    <li class="menuOption" @click="showMenu=false" class="menuLabel">Hide</li>
+                    <!-- <li class="menuOption" @click="showMenu=false" class="menuLabel">Hide</li> -->
                 </ul>
             </div>
         </div>
         <div id="main">
-
             <div class="searchDiv">
                 <input type="text" v-model="search" @click="search=''" v-if="showSearchbox" placeholder="Search"
                     class="searchInp">
@@ -106,7 +107,6 @@
     <script src="js/app.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
     <script>
-
         document.addEventListener("DOMContentLoaded", function (event) {
             const app = new Vue({
                 el: '#app',
@@ -138,7 +138,7 @@
                     },
                     update(index) {
                         this.balance = 0
-                        this.selected = []                        
+                        this.selected = []
                         for (let i = 0; i < this.coins.length; i++) {
                             let obj = {}
                             if (this.coins[i].quantity) {
@@ -152,26 +152,37 @@
                         this.balance = (Math.round(this.balance * 100, 2) / 100)
                         this.pulseBtn = true;
                         setTimeout(() => this.pulseBtn = false, 1400);
-                    },
-                    consolelog() {
-                        //console.log(this.selected)
-                    },
-                    cookies(){
+                    },                    
+                    cookies() {
                         if (Cookies.get("data")) {
-                        for (let i = 0; i < Cookies.getJSON("data").length; i++) {
-                            for (let j = 0; j < this.coins.length; j++) {
-                                if(this.coins[j].name==Cookies.getJSON("data")[i].name){
-                                    this.coins[j].quantity=Cookies.getJSON("data")[i].quantity
+                            for (let i = 0; i < Cookies.getJSON("data").length; i++) {
+                                for (let j = 0; j < this.coins.length; j++) {
+                                    if (this.coins[j].name == Cookies.getJSON("data")[i].name) {
+                                        this.coins[j].quantity = Cookies.getJSON("data")[i].quantity
+                                    }
                                 }
                             }
-                        }                        
-                        this.update()
-                    }
-                    
+                            this.update()
+                        }
+                    },
+                    cookiesMenu() {
+                        setTimeout(() => {
+                            let obj = {}
+                            obj.change = this.showChange
+                            obj.price = this.showPrice
+                            obj.sel = this.showSelected
+                            Cookies.set("menu", obj)
+                        }, 50);
                     },
                 },
                 created() {
-                    this.getCoins();                    
+                    this.getCoins();
+                    if (Cookies.get("menu")) {
+                        this.showChange = Cookies.getJSON("menu").change
+                        this.showPrice = Cookies.getJSON("menu").price
+                        this.showSelected = Cookies.getJSON("menu").sel
+                    }
+                    console.log(Cookies.getJSON("menu"))
                 },
                 computed: {
                     filtered: function () {
@@ -184,5 +195,4 @@
         })
     </script>
 </body>
-
 </html>
