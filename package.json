@@ -23,5 +23,8 @@
   "bugs": {
     "url": "https://github.com/js9b/Cryptocalc/issues"
   },
-  "homepage": "https://github.com/js9b/Cryptocalc#readme"
+  "homepage": "https://github.com/js9b/Cryptocalc#readme", 
+  "engines": {
+    "node": "8.12.0"
+  }
 }
