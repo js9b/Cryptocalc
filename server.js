@@ -37,10 +37,10 @@ function apidata(){
 }
 
 
+app.use(express.static(path.join(__dirname, '/')));
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname + '/index.html'));
 })
-app.use(express.static(path.join(__dirname, '/')));
 app.get('/test', function (req, res, next) {
   res.json({ currency });
 });
