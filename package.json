@@ -9,6 +9,17 @@
     "request": "^2.88.0",
     "request-promise": "^4.2.4"
   },
+   "scripts": {
+    "client-install": "npm install --prefix js",
+    "build": "concurrently \"cd js && npm run build\" \"npm build \"",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "client": "cd ./js && npm start ",
+    "server-prod": "node app.js",
+    "server": "nodemon app.js",
+    "start": "node app.js",
+    "start:dev": "concurrently --kill-others  \"npm run client\" \"npm run server\" ",
+    "heroku-postbuild":"NPM_CONFIG_PRODUCTION=false npm install --prefix js && npm run build --prefix js"
+  },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
