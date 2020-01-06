@@ -45,6 +45,6 @@ app.get('/test', function (req, res, next) {
   res.json({ currency });
 });
 
-app.listen(8000, function () {
+app.listen(4000, function () {
   console.log("Start")
 })
