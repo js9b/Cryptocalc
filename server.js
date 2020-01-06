@@ -45,6 +45,6 @@ app.get('/test', function (req, res, next) {
   res.json({ currency });
 });
 
-app.listen(4000, function () {
+app.listen(proces.env.PORT || 4000, function () {
   console.log("Start")
 })
