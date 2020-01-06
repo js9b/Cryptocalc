@@ -38,6 +38,15 @@ function apidata(){
 
 
 app.use(express.static(path.join(__dirname, '/')));
+//////////////
+if(process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '/')));
+  //
+  app.get('/', (req, res) => {
+    res.sendfile(path.join(__dirname = '/index.html'));
+  })
+}
+//////////////////////////
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname + '/index.html'));
 })
