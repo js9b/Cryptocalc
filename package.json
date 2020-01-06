@@ -10,7 +10,7 @@
     "request-promise": "^4.2.4"
   },
    "scripts": {
-    "start": "node app.js"
+    "start": "node js/app.js"
   },
   "devDependencies": {},
   "scripts": {
