@@ -128,7 +128,9 @@
                     getCoins() {
                         //axios.get('http://192.168.55.107:8000/test')
                              //axios.get('https://52.51.85.80:443/test')
-                        axios.get(`https://cryptocalq.herokuapp.com/test`)
+                        axios.get('https://156.67.88.49:400/test')
+                        
+                        //axios.get(`https://cryptocalq.herokuapp.com/test`)
                             .then(response => {
                                 this.coins = response.data.currency.data;
                                 this.cookies();
