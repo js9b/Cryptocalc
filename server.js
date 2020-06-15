@@ -7,7 +7,7 @@ const process = require('process');
 
 //const PORT = process.env.PORT || 4000;
 
-
+/*
 let currency
 
 const requestOptions = {
@@ -50,14 +50,14 @@ if(process.env.NODE_ENV === 'production') {
   app.get('/', (req, res) => {
     res.sendfile(path.join(__dirname = '/index.html'));
   })
-}
+}*/
 //////////////////////////
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname + '/index.html'));
 })
-app.get('/test', function (req, res, next) {
-  res.json({ currency });
-});
+//app.get('/test', function (req, res, next) {
+//  res.json({ currency });
+//});
 
 app.listen(process.env.PORT || 4000, function () {
   console.log("Start")
