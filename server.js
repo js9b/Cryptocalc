@@ -7,7 +7,7 @@ const process = require('process');
 
 //const PORT = process.env.PORT || 4000;
 
-/*
+
 let currency
 
 const requestOptions = {
@@ -40,7 +40,7 @@ function apidata(){
     console.log('API call error:', err.message);
   });
 }
-
+/*
 
 app.use(express.static(path.join(__dirname, '/')));
 //////////////
@@ -56,9 +56,9 @@ app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname + '/index.html'));
   console.log("work?")
 })
-//app.get('/test', function (req, res, next) {
-//  res.json({ currency });
-//});
+app.get('/test', function (req, res, next) {
+  res.json({ currency });
+});
 
 app.listen(process.env.PORT || 4000, function () {
   console.log("Start")
