@@ -5,7 +5,7 @@ var path = require('path');
 
 const process = require('process');
 
-const PORT = process.env.PORT || 4000;
+//const PORT = process.env.PORT || 4000;
 
 
 let currency
@@ -59,7 +59,7 @@ app.get('/test', function (req, res, next) {
   res.json({ currency });
 });
 
-app.listen(PORT, function () {
+app.listen(process.env.PORT || 4000, function () {
   console.log("Start")
 })
 
