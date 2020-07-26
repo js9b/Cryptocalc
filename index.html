@@ -139,7 +139,7 @@
                                 console.log('err', error);
                             })
                     },
-                    update(index) {
+                    update = setInterval((index) => {
                         this.balance = 0
                         this.selected = []
                         for (let i = 0; i < this.coins.length; i++) {
@@ -155,7 +155,9 @@
                         this.balance = (Math.round(this.balance * 100, 2) / 100)
                         this.pulseBtn = true;
                         setTimeout(() => this.pulseBtn = false, 1400);
-                    },                    
+                    }, 
+                    200000),                       
+                                     
                     cookies() {
                         if (Cookies.get("data")) {
                             for (let i = 0; i < Cookies.getJSON("data").length; i++) {
@@ -178,6 +180,7 @@
                         }, 50);
                     },
                 },
+                
                 created() {
                     this.getCoins();
                     if (Cookies.get("menu")) {
