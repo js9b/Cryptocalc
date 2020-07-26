@@ -73,7 +73,7 @@
             <ul class="list" v-if="showSelected">
                 <li v-for="(coin, index) in filtered" class="elements" v-if="coin.quantity">
                     <span class="coinName">{{coin.name}}</span>
-                    <input type="number" @change="update(index)" v-bind:id="coin.symbol" v-model="coin.quantity"
+                    <input type="number" @change="update(index)" v-bind:id="coin.symbol" v-model="coin.quantity" min="0"
                         placeholder="QUAN" class="numInput">
                     <div v-if="showPrice" class="price">{{coin.quote.USD.price}} USD</div>
                     <div v-if="showChange" class="change">
@@ -126,10 +126,7 @@
                 },
                 methods: {
                     getCoins() {
-                        //axios.get('http://192.168.55.107:8000/test')
-                        //axios.get('https://52.51.85.80:443/test')
-                        // axios.get('https://156.67.88.50:4000/test')
-
+                        
                         axios.get(`https://cryptocalq.herokuapp.com/test`)
                             .then(response => {
                                 this.coins = response.data.currency.data;
@@ -155,7 +152,7 @@
                         this.balance = (Math.round(this.balance * 100, 2) / 100)
                         this.pulseBtn = true;
                         setTimeout(() => this.pulseBtn = false, 1400);
-                        setTimeout(() => this.refresh(), 9000);
+                        setTimeout(() => this.refresh(), 10000);
                         
                     },
                     cookies() {
