@@ -155,7 +155,8 @@
                         this.balance = (Math.round(this.balance * 100, 2) / 100)
                         this.pulseBtn = true;
                         setTimeout(() => this.pulseBtn = false, 1400);
-                        this.refresh()
+                        setTimeout(() => this.refresh(), 9000);
+                        
                     },
                     cookies() {
                         if (Cookies.get("data")) {
