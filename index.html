@@ -127,9 +127,9 @@
                 methods: {
                     getCoins() {
                         //axios.get('http://192.168.55.107:8000/test')
-                             //axios.get('https://52.51.85.80:443/test')
-                       // axios.get('https://156.67.88.50:4000/test')
-                        
+                        //axios.get('https://52.51.85.80:443/test')
+                        // axios.get('https://156.67.88.50:4000/test')
+
                         axios.get(`https://cryptocalq.herokuapp.com/test`)
                             .then(response => {
                                 this.coins = response.data.currency.data;
@@ -151,12 +151,12 @@
                                 this.selected.push(obj)
                             }
                         }
-                        Cookies.set("data", this.selected, {expires: 2137})
+                        Cookies.set("data", this.selected, { expires: 2137 })
                         this.balance = (Math.round(this.balance * 100, 2) / 100)
                         this.pulseBtn = true;
                         setTimeout(() => this.pulseBtn = false, 1400);
                         this.refresh()
-                    },                    
+                    },
                     cookies() {
                         if (Cookies.get("data")) {
                             for (let i = 0; i < Cookies.getJSON("data").length; i++) {
@@ -175,13 +175,14 @@
                             obj.change = this.showChange
                             obj.price = this.showPrice
                             obj.sel = this.showSelected
-                            Cookies.set("menu", obj, {expires: 2137})
+                            Cookies.set("menu", obj, { expires: 2137 })
                         }, 50);
                     },
+                    refresh() {
+                        setTimeout(this.getCoins, 200000)
+                    }
                 },
-                refresh(){
-                    setTimeout(this.getCoins(), 200000)
-                },
+
                 created() {
                     this.getCoins();
                     if (Cookies.get("menu")) {
@@ -202,4 +203,5 @@
         })
     </script>
 </body>
+
 </html>
