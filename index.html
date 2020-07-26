@@ -99,7 +99,7 @@
                 </li>
             </ul>
             <div v-bind:class="[pulseBtn ? 'counter pulse' : 'counter']">
-                Account balance: {{balance}} USD <span></span>
+                Balance: {{balance}} USD <span></span>
             </div>
         </div>
     </div>
@@ -180,7 +180,7 @@
                     },
                 },
                 refresh(){
-                    setTimeout(this.update, 200000)
+                    setTimeout(this.update(), 200000)
                 },
                 created() {
                     this.getCoins();
