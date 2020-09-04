@@ -2,8 +2,10 @@ const rp = require('request-promise');
 var express = require('express');
 var app = express();
 var path = require('path');
+var cors = require('cors');
 
 const process = require('process');
+
 
 //const PORT = process.env.PORT || 4000;
 
@@ -53,6 +55,7 @@ if(process.env.NODE_ENV === 'production') {
 }*/
 //////////////////////////
 app.use(express.static(__dirname + '/'));
+app.use(cors({origin: '`https://cryptocalq.herokuapp.com:4000'}));
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname + '/index.html'));
   console.log("work?")
