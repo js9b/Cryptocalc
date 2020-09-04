@@ -162,7 +162,7 @@ input:focus{
     color: white;
     margin-left: 20%;
     padding: 10px;
-transition: 0.7;
+transition: 0.7s;
 }
 .menuOption{
     font-size: 22px;
