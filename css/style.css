@@ -83,6 +83,7 @@ label{
     width: 100vw;
     box-shadow: 0 0 10px rgb(20, 20, 20);    
     background-color:rgb(55,55,55);
+transition: 0.7;
 }
 .counter{
 	position:fixed;
