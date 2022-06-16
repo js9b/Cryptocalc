@@ -21,7 +21,7 @@ const requestOptions = {
     'convert': 'USD'
   },
   headers: {
-    'X-CMC_PRO_API_KEY': '5b3f058a-fa58-4c54-a7cc-d5c9be76cf0d'
+    'X-CMC_PRO_API_KEY': ''//
   },
   json: true,
   gzip: true
